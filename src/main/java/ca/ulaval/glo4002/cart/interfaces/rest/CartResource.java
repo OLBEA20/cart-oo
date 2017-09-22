@@ -9,10 +9,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import ca.ulaval.glo4002.cart.CartApplicationModule;
 import ca.ulaval.glo4002.cart.application.CartApplicationService;
 import ca.ulaval.glo4002.cart.application.ShopApplicationService;
 import ca.ulaval.glo4002.cart.domain.cart.Cart;
 import ca.ulaval.glo4002.cart.domain.shop.ShopItem;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 @Path("/clients/{" + CartResource.EMAIL_PARAMETER + "}/cart")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -25,7 +28,8 @@ public class CartResource {
 	private ShopApplicationService shopService;
 
 	public CartResource() {
-		this.cartService = new CartApplicationService();
+		Injector injector = Guice.createInjector(new CartApplicationModule());
+		this.cartService = injector.getInstance(CartApplicationService.class);
 		this.shopService = new ShopApplicationService();
 	}
 

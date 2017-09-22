@@ -1,5 +1,6 @@
 package ca.ulaval.glo4002.cart;
 
+import com.google.inject.Guice;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
