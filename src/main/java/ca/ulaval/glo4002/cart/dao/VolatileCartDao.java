@@ -10,14 +10,13 @@ import java.util.List;
 import java.util.Map;
 
 public class VolatileCartDao implements CartDao{
-    private Map<String, Cart> carts;
-
-    public VolatileCartDao(){
-        carts = new HashMap<String, Cart>();
-    }
+    private static HashMap<String, Cart> carts;
+    static{ carts  = new HashMap<String, Cart>();}
+    
 
     @Override
     public Cart findOrCreateCartForClient(String email) {
+
         if(carts.containsKey(email)){
             return carts.get(email);
         }
@@ -30,7 +29,9 @@ public class VolatileCartDao implements CartDao{
     @Override
     public void addItemToCart(String email, ShopItem item) {
         System.out.println("Volatile Memory");
-        carts.get(email).addItem(new CartItem(item.getName(), 1));
+        if(carts.containsKey(email)) {
+            carts.get(email).addItem(new CartItem(item.getName(), 1));
+        }
     }
 
     @Override

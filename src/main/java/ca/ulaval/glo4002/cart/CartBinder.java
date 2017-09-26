@@ -13,8 +13,8 @@ public class CartBinder extends AbstractBinder {
 
     @Override
     protected void configure() {
-        bind(CartApplicationService.class).to(CartApplicationService.class);
         bind(ShopApplicationService.class).to(ShopApplicationService.class);
+        bind(CartApplicationService.class).to(CartApplicationService.class);
 
         if(System.getProperty("store").equals("memory")) {
             bind(VolatileCartDao.class).to(CartDao.class);
