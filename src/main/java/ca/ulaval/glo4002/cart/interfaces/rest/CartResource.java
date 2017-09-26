@@ -1,5 +1,6 @@
 package ca.ulaval.glo4002.cart.interfaces.rest;
 
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -27,10 +28,10 @@ public class CartResource {
 	private CartApplicationService cartService;
 	private ShopApplicationService shopService;
 
-	public CartResource() {
-		Injector injector = Guice.createInjector(new CartApplicationModule());
-		this.cartService = injector.getInstance(CartApplicationService.class);
-		this.shopService = new ShopApplicationService();
+	@Inject
+	public CartResource(CartApplicationService cartApplicationService, ShopApplicationService shopApplicationService) {
+		this.cartService = cartApplicationService;
+		this.shopService = shopApplicationService;
 	}
 
 	@GET

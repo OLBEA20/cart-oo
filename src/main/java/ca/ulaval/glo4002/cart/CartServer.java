@@ -26,9 +26,8 @@ public class CartServer implements Runnable {
 
 		// Configuration manuelle au lieu du package scanning
 		ResourceConfig packageConfig = new ResourceConfig()
-				.registerInstances(createClientResource(), createCartResource())
-				.registerInstances(new PersistenceExceptionMapper(), new ItemNotFoundException())
-				.register(new CORSFilter());
+				.packages("ca.ulaval.glo4002.cart")
+				.register(new CORSFilter()).register(new CartBinder());
 
 		ServletContainer container = new ServletContainer(packageConfig);
 		ServletHolder servletHolder = new ServletHolder(container);
@@ -45,11 +44,4 @@ public class CartServer implements Runnable {
 		}
 	}
 
-	private CartResource createCartResource() {
-		return new CartResource();
-	}
-
-	private Object createClientResource() {
-		return new ShopResource();
-	}
 }
